@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d27315e5ab0da468096369593c5be4, type: 3}
+  m_Name: FastGun
+  m_EditorClassIdentifier: 
+  shootCooldown: 0.12
+  shootProjectile: {fileID: 2582464644642728686, guid: ce79189ee8f3973449bcb22926735cb4, type: 3}
+  shootSpeed: 12
+  shootDamage: 1
+  shootForce: 2
+  shootKnockbackTime: 0.1

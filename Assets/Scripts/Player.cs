@@ -5,15 +5,18 @@ using UnityEngine;
 public class Player : Actor
 {
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float shootCooldown = 0.2f;
-    [SerializeField] private Projectile shootProjectile;
-    [SerializeField] private float shootSpeed = 10f;
-    [SerializeField] private int shootDamage = 2;
-    [SerializeField] private float shootForce = 5f;
-    [SerializeField] private float shootKnockbackTime = 0.3f;
+    [SerializeField] private Item startItem;
     [SerializeField] private Transform gunSpawnPoint;
 
+    private Item currItem;
+
     private bool canShoot = true;
+
+    protected override void Start()
+    {
+        base.Start();
+        Equip(startItem);
+    }
 
     protected override void Update()
     {
@@ -33,12 +36,17 @@ public class Player : Actor
             spriteRenderer.flipX = mouseDir.x > 0;
 
             Vector2 gunSpawn = GetGunSpawn();
-            Projectile proj = Instantiate(shootProjectile, gunSpawn, Quaternion.identity);
+            Projectile proj = Instantiate(currItem.shootProjectile, gunSpawn, Quaternion.identity);
             Vector2 gunDir = (mousePos - gunSpawn).normalized;
-            proj.Shoot(gunDir * shootSpeed, shootDamage, gunDir * shootForce, shootKnockbackTime);
+            proj.Shoot(gunDir * currItem.shootSpeed, currItem.shootDamage, gunDir * currItem.shootForce, currItem.shootKnockbackTime);
         }
 
         base.Update();
+    }
+
+    public void Equip(Item item)
+    {
+        currItem = item;
     }
 
     protected override void Die()
@@ -50,7 +58,7 @@ public class Player : Actor
     private IEnumerator ShootCooldown()
     {
         canShoot = false;
-        yield return new WaitForSeconds(shootCooldown);
+        yield return new WaitForSeconds(currItem.shootCooldown);
         canShoot = true;
     }
 
